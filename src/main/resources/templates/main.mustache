@@ -1,0 +1,20 @@
+<html>
+<body>
+<h1>Добавление слов</h1>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="Введите сообщение"/>
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<h2>Все слова</h2>
+<div>
+    <form action="main/mix" method="get">
+        <button type="submit">Перемешать</button>
+    </form>
+</div>
+{{#words}}
+    <div>{{text}}</div>
+{{/words}}
+</body>
+</html>
