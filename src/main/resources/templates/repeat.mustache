@@ -1,0 +1,36 @@
+<html>
+<body>
+<div>
+    <form action="/logout" method="post">
+        <input type="submit" value="Sign Out"/>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    </form>
+</div>
+<h1>Воспроизведение запомненных слов слов</h1>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="Введите запомненное слово"/>
+        <button type="submit">Добавить</button>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    </form>
+</div>
+<div>
+    <a href="/main">Вернуться добавлению слов</a>
+</div>
+<h2>Вспомненные слова</h2>
+{{#words}}
+    ТАКОЕ СЛОВО ЕСТЬ!!!
+    <div>{{text}}</div>
+{{/words}}
+{{^words}}
+    Такого слова нет =(
+{{/words}}
+</body>
+<script type="text/javascript">
+    document.onload = setTimeout(myFunction, 3000);
+    function myFunction() {
+        alert('Время вышло!');
+        window.location = "/main";
+    }
+</script>
+</html>

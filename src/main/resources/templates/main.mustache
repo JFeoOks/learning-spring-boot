@@ -8,15 +8,22 @@
 </div>
 <h1>Добавление слов</h1>
 <div>
-    <form method="post">
+    <form action="/main" method="post">
         <input type="text" name="text" placeholder="Введите сообщение"/>
         <button type="submit">Добавить</button>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     </form>
 </div>
+<div>
+    <a href="/repeat">
+        <div>
+            <button type="button">Перейти к повторению</button>
+        </div>
+    </a>
+</div>
 <h2>Все слова</h2>
 <div>
-    <form action="main/mix" method="get">
+    <form action="/main/mix" method="post">
         <button type="submit">Перемешать</button>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     </form>

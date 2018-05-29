@@ -35,7 +35,7 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/mix")
+    @PostMapping("/mix")
     public String mixWords(Map<String, Object> model) {
         List<Word> result = new ArrayList<>();
         wordRepository.findAll().forEach(result::add);
