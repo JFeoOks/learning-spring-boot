@@ -2,12 +2,13 @@ package ru.jfeoks.learningspringboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.jfeoks.learningspringboot.model.Word;
 import ru.jfeoks.learningspringboot.repo.WordRepository;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -17,12 +18,12 @@ public class RepeatController {
     @Autowired
     private WordRepository wordRepository;
 
-    @GetMapping
-    public String repeat(Map<String, Object> model) {
+    @PostMapping
+    public String repeat(@RequestBody List<String> words, Map<String, Object> model) {
         return "repeat";
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public String addWord(String text, Map<String, Object> model) {
         Word foundedWord = wordRepository.findByText(text);
 

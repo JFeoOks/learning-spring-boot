@@ -2,13 +2,13 @@
 <body>
 <div>
     <form action="/logout" method="post">
-        <input type="submit" value="Sign Out"/>
+        <input type="submit" value="Выйти"/>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     </form>
 </div>
 <h1>Воспроизведение запомненных слов слов</h1>
 <div>
-    <form method="post">
+    <form action="/repeat/add" method="post" enctype="application/json">
         <input type="text" name="text" placeholder="Введите запомненное слово"/>
         <button type="submit">Добавить</button>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
@@ -19,11 +19,7 @@
 </div>
 <h2>Вспомненные слова</h2>
 {{#words}}
-    ТАКОЕ СЛОВО ЕСТЬ!!!
     <div>{{text}}</div>
-{{/words}}
-{{^words}}
-    Такого слова нет =(
 {{/words}}
 </body>
 <script type="text/javascript">

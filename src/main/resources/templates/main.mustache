@@ -1,35 +1,73 @@
 <html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
 <body>
-<div>
-    <form action="/logout" method="post">
-        <input type="submit" value="Sign Out"/>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-    </form>
+<div id="main">
+    <div>
+        <form action="/logout" method="post">
+            <input type="submit" value="Выйти"/>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        </form>
+    </div>
+    <button type="button" onclick="showAddWordsForm()">Добавить слова</button>
+    <div id="addFormWords" style="display: none">
+        <h1>Добавление слов</h1>
+        <input type="text" id="inputWord" placeholder="Введите сообщение"/>
+        <button type="button" onclick="submitWord()">Добавить</button>
+    </div>
+    <div>
+        <button type="button" onclick="submitRepeat()">Перейти к повторению</button>
+    </div>
+    <h2>Все слова</h2>
+    <div>
+        <form action="/main/mix" method="post" hidden="true">
+            <button type="submit">Перемешать</button>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        </form>
+    </div>
+    <div id="allWords">
+        {{#words}}
+            <div>{{text}}</div>
+        {{/words}}
+    </div>
 </div>
-<h1>Добавление слов</h1>
-<div>
-    <form action="/main" method="post">
-        <input type="text" name="text" placeholder="Введите сообщение"/>
-        <button type="submit">Добавить</button>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-    </form>
-</div>
-<div>
-    <a href="/repeat">
-        <div>
-            <button type="button">Перейти к повторению</button>
-        </div>
-    </a>
-</div>
-<h2>Все слова</h2>
-<div>
-    <form action="/main/mix" method="post">
-        <button type="submit">Перемешать</button>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-    </form>
-</div>
-{{#words}}
-    <div>{{text}}</div>
-{{/words}}
 </body>
+<script type="text/javascript" language="javascript">
+    var words = [];
+
+    function showAddWordsForm() {
+        if ($('#addFormWords').is(':visible'))
+            $('#addFormWords').slideUp().hide('slow');
+        else
+            $('#addFormWords').slideDown().show('slow');
+    }
+
+    function submitWord() {
+        var word = $('#inputWord').val();
+
+        if (word) return;
+
+        words.push(word);
+        $('<div>', {text: word}).appendTo('#allWords');
+        $('#inputWord').val('');
+    }
+
+    function submitRepeat() {
+        //https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html
+        // https://docs.spring.io/spring-security/site/docs/3.2.x/reference/htmlsingle/html5/#the-csrfmetatags-tag
+        var headers = {};
+        headers["{{_csrf.headerName}}"] = "{{_csrf.token}}";
+        $.ajax({
+            url: "/repeat",
+            type: "POST",
+            data: JSON.stringify(["Amigo", "Bravo"]),
+            headers: headers,
+            contentType: "application/json",
+            success: function (data) {
+                $("#main").html(data);
+            }
+        });
+    }
+</script>
 </html>
