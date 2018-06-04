@@ -46,10 +46,10 @@
     function submitWord() {
         var word = $('#inputWord').val();
 
-        if (word) return;
+        if (!word) return;
 
         words.push(word);
-        $('<div>', {text: word}).appendTo('#allWords');
+        $('<div>', {text: word}).appendTo('#allWords').slideDown().show('slow');
         $('#inputWord').val('');
     }
 
@@ -61,7 +61,7 @@
         $.ajax({
             url: "/repeat",
             type: "POST",
-            data: JSON.stringify(["Amigo", "Bravo"]),
+            data: JSON.stringify(words),
             headers: headers,
             contentType: "application/json",
             success: function (data) {
