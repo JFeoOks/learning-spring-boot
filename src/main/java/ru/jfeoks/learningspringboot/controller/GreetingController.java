@@ -12,7 +12,11 @@ public class GreetingController {
 
     @GetMapping("/")
     public String greeting(Principal principal, Map<String, Object> model) {
-        model.put("username", principal.getName());
+        if (principal != null)
+            model.put("username", principal.getName());
+        else
+            model.put("username", "Гость");
+
         return "greeting";
     }
 }

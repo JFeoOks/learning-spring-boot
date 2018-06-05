@@ -1,21 +1,19 @@
-<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Повторяйка</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <h1>Привет, {{username}}.</h1>
 <h3>Усаживайся поудобнее и переходи к выбору слов.</h3>
-<p>
-    На данный момент есть два варианта игры:
+<p>На данный момент есть два варианта игры:
 <ul>
     <li>Ввести слова самому</li>
-    <li>Подгрузить из базы данных</li>
+    <li>Позволить нам выбрать слова для Вас</li>
 </ul>
-</p>
 <form action="/main" method="get">
     <button type="submit">Перейти к выбору слов</button>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
 </form>
 </body>
 </html>

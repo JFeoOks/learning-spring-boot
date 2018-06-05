@@ -1,4 +1,7 @@
 <html>
+<head>
+    <title>Повторяйка</title>
+</head>
 <body>
 <div>
     <form action="/logout" method="post">
@@ -8,25 +11,47 @@
 </div>
 <h1>Воспроизведение запомненных слов слов</h1>
 <div>
-    <form action="/repeat/add" method="post" enctype="application/json">
-        <input type="text" name="text" placeholder="Введите запомненное слово"/>
-        <button type="submit">Добавить</button>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-    </form>
+    <input type="text" id="inputWord" placeholder="Введите запомненное слово"/>
+    <button type="button" onclick="submitWord()">Добавить</button>
 </div>
 <div>
     <a href="/main">Вернуться добавлению слов</a>
 </div>
 <h2>Вспомненные слова</h2>
-{{#words}}
-    <div>{{text}}</div>
-{{/words}}
+<div id="allWords">
+
+</div>
 </body>
 <script type="text/javascript">
-    document.onload = setTimeout(myFunction, 5000);
+    document.onload = setTimeout(myFunction, 10000);
+
     function myFunction() {
         alert('Время вышло!');
+
+        $.ajax({
+            url: "/repeat",
+            type: "DELETE"
+        });
+
         window.location = "/main";
+    }
+
+    function submitWord() {
+        var word = $('#inputWord').val();
+
+        if (!word) return;
+
+        $.get(
+                "/repeat/check",
+                {word: word},
+                function (data) {
+                    if (!data) return;
+
+                    $('<div>', {text: word}).appendTo('#allWords').slideDown().show('slow');
+                }
+        );
+
+        $('#inputWord').val('');
     }
 </script>
 </html>
