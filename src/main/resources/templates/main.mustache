@@ -67,6 +67,9 @@
             contentType: "application/json",
             success: function (data) {
                 $("#main").html(data);
+            },
+            error: function (error) {
+                alert(error.responseJSON.message);
             }
         });
     }

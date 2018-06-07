@@ -15,7 +15,9 @@
     <button type="button" onclick="submitWord()">Добавить</button>
 </div>
 <div>
-    <a href="/main">Вернуться добавлению слов</a>
+    <a href="/main">
+        <button type="button">Вернуться добавлению слов</button>
+    </a>
 </div>
 <h2>Вспомненные слова</h2>
 <div id="allWords">
@@ -23,9 +25,9 @@
 </div>
 </body>
 <script type="text/javascript">
-    document.onload = setTimeout(myFunction, 10000);
+    document.onload = setTimeout(stopRepeat, 10000);
 
-    function myFunction() {
+    function stopRepeat() {
         alert('Время вышло!');
 
         $.ajax({
