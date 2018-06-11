@@ -25,12 +25,16 @@
 </div>
 </body>
 <script type="text/javascript">
+    var headers = {};
+    headers["{{_csrf.headerName}}"] = "{{_csrf.token}}";
+
     document.onload = setTimeout(stopRepeat, 10000);
 
     function stopRepeat() {
         alert('Время вышло!');
 
         $.ajax({
+            headers :headers,
             url: "/repeat",
             type: "DELETE"
         });

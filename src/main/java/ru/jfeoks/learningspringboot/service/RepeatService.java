@@ -69,7 +69,7 @@ public class RepeatService {
         result.set("remindedWords", jsonMapper.valueToTree(remindedWords));
 
         History history = new History();
-        history.setHistory(result.textValue());
+        history.setHistory(result.toString());
         history.setUser(userRepository.findByUsername(userName));
 
         historyRepository.save(history);
